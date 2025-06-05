@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição - Atuemos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Theatrical (Dark Stage, Parchment, Deep Red, Gold Accents) -->
+    <!-- Application Structure Plan: Single-page application with a theatrical theme. Header, description, and a central registration form. Client-side validation and feedback. Structure chosen for directness in a sign-up process, now styled for a theatre group. -->
+    <!-- Visualization & Content Choices: Report Info: User registration. Goal: Collect user info. Viz/Presentation Method: HTML form with theatrical styling. Interaction: Form submission with JS validation. Justification: Standard form for data collection, enhanced with thematic styling for brand alignment. Library/Method: Vanilla JS and Tailwind CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background-color: #38322C; /* Dark Brown - like old theatre wood or backstage */
+            color: #4A4A4A; /* Dark gray for text on light background */
+        }
+        .form-container {
+            background-color: #FDFBF5; /* Creamy Parchment */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+        }
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            color: #A0522D; /* Sienna - like theatre posters */
+        }
+        .page-subtitle {
+            color: #6B4F4E; /* Muted Brown */
+        }
+        .form-label {
+            color: #5D4037; /* Brown */
+            font-weight: 500;
+        }
+        .form-input, .form-select, .form-textarea {
+            background-color: #FFFFFF;
+            border-color: #D1C4E9; /* Light Purple/Brownish, like aged paper edge */
+            border-width: 1px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Lora', serif;
+        }
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: #A1887F; /* Lighter Brown for placeholder */
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #B08D57; /* Dull Gold */
+            box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.25);
+            outline: none;
+        }
+        .submit-button {
+            background-color: #8B0000; /* Dark Red - velvet curtain */
+            color: #FFFDD0; /* Cream text */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .submit-button:hover {
+            background-color: #A52A2A; /* Brownish Red */
+            transform: translateY(-1px);
+        }
+        .success-message {
+            background-color: #E8F5E9; /* Light Green */
+            color: #2E7D32; /* Dark Green */
+            border-left-width: 4px;
+            border-color: #66BB6A; /* Green */
+        }
+        .error-message {
+            background-color: #FFEBEE; /* Light Red */
+            color: #C62828; /* Dark Red */
+            border-left-width: 4px;
+            border-color: #EF5350; /* Red */
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message-animate {
+            animation: fadeInDown 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8">
+    <div class="form-container max-w-xl w-full space-y-8 p-8 sm:p-10 md:p-12 rounded-lg">
+        <div>
+            <h2 class="mt-6 text-center text-4xl sm:text-5xl font-bold page-title">
+                Inscrição Atuemos 🎭
+            </h2>
+            <p class="mt-4 text-center text-base sm:text-lg page-subtitle">
+                Abram-se as cortinas para novos talentos! Preencha o formulário e junte-se ao nosso elenco.
+            </p>
+        </div>
+
+        <form id="registrationForm" class="mt-10 space-y-7" novalidate>
+            <div>
+                <label for="fullName" class="block text-sm font-medium form-label">Nome Completo (Nome Artístico)</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" required
+                       class="form-input mt-1.5 block w-full px-4 py-3 border rounded-md shadow-sm placeholder-slate-400 focus:outline-none sm:text-sm">
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium form-label">Email para Contato</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                       class="form-input mt-1.5 block w-full px-4 py-3 border rounded-md shadow-sm placeholder-slate-400 focus:outline-none sm:text-sm">
+            </div>
+
+            <div>
+                <label for="phone" class="block text-sm font-medium form-label">Telefone <span class="text-xs text-gray-500">(Opcional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel"
+                       class="form-input mt-1.5 block w-full px-4 py-3 border rounded-md shadow-sm placeholder-slate-400 focus:outline-none sm:text-sm">
+            </div>
+
+            <div>
+                <label for="interestArea" class="block text-sm font-medium form-label">Principal Área de Interesse no Teatro</label>
+                <select id="interestArea" name="interestArea" required
+                        class="form-select mt-1.5 block w-full pl-4 pr-10 py-3 border rounded-md shadow-sm focus:outline-none sm:text-sm">
+                    <option value="" disabled selected>Selecione sua paixão</option>
+                    <option value="atuacao">Atuação (Palco, Câmera)</option>
+                    <option value="direcao">Direção Teatral</option>
+                    <option value="roteiro">Escrita de Roteiros / Dramaturgia</option>
+                    <option value="producao">Produção Teatral</option>
+                    <option value="cenografia">Cenografia e Figurino</option>
+                    <option value="iluminacao_som">Iluminação e Sonoplastia</option>
+                    <option value="apoio_geral">Apoio Geral nos Bastidores</option>
+                    <option value="outro">Outra área (especifique abaixo)</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="motivation" class="block text-sm font-medium form-label">Sua Motivação (Conte-nos um pouco sobre você e seu interesse pelo teatro)</label>
+                <textarea id="motivation" name="motivation" rows="5" required
+                          class="form-textarea mt-1.5 block w-full px-4 py-3 border rounded-md shadow-sm placeholder-slate-400 focus:outline-none sm:text-sm"></textarea>
+            </div>
+
+            <div>
+                <button type="submit"
+                        class="submit-button group relative w-full flex justify-center py-3.5 px-4 border border-transparent text-base font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Enviar Minha Inscrição
+                </button>
+            </div>
+        </form>
+
+        <div id="messageArea" class="mt-8">
+            <!-- Messages will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const messageArea = document.getElementById('messageArea');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            messageArea.innerHTML = ''; 
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const interestArea = document.getElementById('interestArea').value;
+            const motivation = document.getElementById('motivation').value.trim();
+
+            let errors = [];
+
+            if (!fullName) {
+                errors.push("O campo 'Nome Completo' é obrigatório.");
+            }
+            if (!email) {
+                errors.push("O campo 'Email para Contato' é obrigatório.");
+            } else if (!isValidEmail(email)) {
+                errors.push("Por favor, insira um endereço de email válido.");
+            }
+            if (!interestArea) {
+                errors.push("Por favor, selecione uma 'Principal Área de Interesse'.");
+            }
+            if (!motivation) {
+                errors.push("O campo 'Sua Motivação' é obrigatório.");
+            }
+
+            if (errors.length > 0) {
+                displayMessage(errors.join('<br>'), 'error');
+            } else {
+                displayMessage('Inscrição recebida! Logo entraremos em cena com mais informações. Obrigado!', 'success');
+                form.reset(); 
+            }
+        });
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function displayMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `p-4 rounded-md shadow-md message-animate text-sm ${type === 'success' ? 'success-message' : 'error-message'}`;
+            messageDiv.innerHTML = message; 
+            messageArea.appendChild(messageDiv);
+            
+            messageDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
